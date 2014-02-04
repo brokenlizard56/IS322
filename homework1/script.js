@@ -45,3 +45,24 @@ function buildGallery()
  		updateNav(pos);
  	});
 }
+Modernizr.load({
+  test: Modernizr.touch && Modernizr.csstransitions,
+  yep: 'js/swipe.js',
+  complete: function() {
+    if (Modernizr.touch && Modernizr.csstransitions) {
+      swipeEnabled = true;
+      buildSwipe();
+    }
+  }
+});
+function buildSwipe()
+{
+	w.mySwipe = new Swipe(document.getElementById('img-list'),
+	{
+		callback: function(event, index, elem)
+		{
+			updateNav(index);
+			loadImg(index + 1);
+		} 
+	});
+}
